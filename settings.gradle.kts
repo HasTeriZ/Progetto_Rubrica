@@ -1,0 +1,1 @@
+rootProject.name = "Progetto_Rubrica"
