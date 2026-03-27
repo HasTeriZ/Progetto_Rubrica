@@ -24,7 +24,7 @@ public class EditorPersona extends JDialog {
         JPanel root = new JPanel(new BorderLayout());
         root.setBackground(Tema.BG);
 
-        // ── Header ──
+        // Header
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(Tema.PANEL);
         header.setBorder(BorderFactory.createCompoundBorder(
@@ -35,7 +35,7 @@ public class EditorPersona extends JDialog {
         titolo.setForeground(Tema.TEXT);
         header.add(titolo, BorderLayout.WEST);
 
-        // ── Form con GridBagLayout ──
+        // Form con GridBagLayout
         JPanel form = new JPanel(new GridBagLayout());
         form.setBackground(Tema.BG);
         form.setBorder(BorderFactory.createEmptyBorder(20, 24, 16, 24));
@@ -44,13 +44,13 @@ public class EditorPersona extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
 
-        // Riga 0 — label NOME | label COGNOME
+        // label NOME | label COGNOME
         gbc.gridy = 0; gbc.gridx = 0; gbc.gridwidth = 1; gbc.insets = new Insets(0, 0, 4, 8);
         form.add(label("NOME"), gbc);
         gbc.gridx = 1; gbc.insets = new Insets(0, 0, 4, 0);
         form.add(label("COGNOME"), gbc);
 
-        // Riga 1 — campo NOME | campo COGNOME
+        // campo NOME | campo COGNOME
         campoNome = campo(p != null ? p.getNome()    : "");
         campoCognome = campo(p != null ? p.getCognome() : "");
         gbc.gridy = 1; gbc.gridx = 0; gbc.insets = new Insets(0, 0, 14, 8);
@@ -58,22 +58,22 @@ public class EditorPersona extends JDialog {
         gbc.gridx = 1; gbc.insets = new Insets(0, 0, 14, 0);
         form.add(campoCognome, gbc);
 
-        // Riga 2 — label INDIRIZZO
+        // label INDIRIZZO
         gbc.gridy = 2; gbc.gridx = 0; gbc.gridwidth = 2; gbc.insets = new Insets(0, 0, 4, 0);
         form.add(label("INDIRIZZO"), gbc);
 
-        // Riga 3 — campo INDIRIZZO
+        // campo INDIRIZZO
         campoIndirizzo = campo(p != null ? p.getIndirizzo() : "");
         gbc.gridy = 3; gbc.insets = new Insets(0, 0, 14, 0);
         form.add(campoIndirizzo, gbc);
 
-        // Riga 4 — label TELEFONO | label ETÀ
+        // label TELEFONO | label ETÀ
         gbc.gridy = 4; gbc.gridx = 0; gbc.gridwidth = 1; gbc.insets = new Insets(0, 0, 4, 8);
         form.add(label("TELEFONO"), gbc);
         gbc.gridx = 1; gbc.insets = new Insets(0, 0, 4, 0);
         form.add(label("ETÀ"), gbc);
 
-        // Riga 5 — campo TELEFONO | campo ETÀ
+        // campo TELEFONO | campo ETÀ
         campoTelefono = campo(p != null ? p.getTelefono()            : "");
         campoEta = campo(p != null ? String.valueOf(p.getEta()) : "");
         gbc.gridy = 5; gbc.gridx = 0; gbc.insets = new Insets(0, 0, 0, 8);
@@ -81,7 +81,7 @@ public class EditorPersona extends JDialog {
         gbc.gridx = 1; gbc.insets = new Insets(0, 0, 0, 0);
         form.add(campoEta, gbc);
 
-        // ── Footer ──
+        // Footer
         JPanel footer = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 12));
         footer.setBackground(Tema.PANEL);
         footer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Tema.BORDER));
@@ -99,7 +99,7 @@ public class EditorPersona extends JDialog {
         setContentPane(root);
     }
 
-    // ── Helpers UI ───────────────────────────────────────────
+    // Helpers UI
 
     private JLabel label(String testo) {
         JLabel l = new JLabel(testo);
@@ -168,7 +168,7 @@ public class EditorPersona extends JDialog {
         return btn;
     }
 
-    // ── Salvataggio ──────────────────────────────────────────
+    // Salvataggio
 
     private void salva() {
         String nome = campoNome.getText().trim();

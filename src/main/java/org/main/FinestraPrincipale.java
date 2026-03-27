@@ -27,11 +27,11 @@ public class FinestraPrincipale extends JFrame {
     }
 
     private void costruisciUI() {
-        // ── Root panel ──
+        // Root panel
         JPanel root = new JPanel(new BorderLayout());
         root.setBackground(Tema.BG);
 
-        // ── Header ──
+        // Header
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(Tema.PANEL);
         header.setBorder(BorderFactory.createCompoundBorder(
@@ -50,7 +50,7 @@ public class FinestraPrincipale extends JFrame {
         header.add(titolo, BorderLayout.WEST);
         header.add(labelContatore, BorderLayout.EAST);
 
-        // ── Toolbar ──
+        // Toolbar
         JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         toolbar.setBackground(Tema.BG);
         toolbar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Tema.BORDER));
@@ -63,7 +63,7 @@ public class FinestraPrincipale extends JFrame {
         toolbar.add(btnModifica);
         toolbar.add(btnElimina);
 
-        // ── Tabella ──
+        // Tabella
         String[] colonne = {"Nome", "Cognome", "Telefono"};
         modelloTabella = new DefaultTableModel(colonne, 0) {
             @Override
@@ -136,7 +136,7 @@ public class FinestraPrincipale extends JFrame {
         scroll.getViewport().setBackground(Tema.BG);
         scroll.setBorder(BorderFactory.createEmptyBorder());
 
-        // ── Status bar ──
+        // Status bar
         JPanel statusBar = new JPanel(new BorderLayout());
         statusBar.setBackground(Tema.PANEL);
         statusBar.setBorder(BorderFactory.createCompoundBorder(
@@ -148,12 +148,12 @@ public class FinestraPrincipale extends JFrame {
         hint.setForeground(Tema.TEXT_DIM);
         statusBar.add(hint, BorderLayout.WEST);
 
-        // ── Azioni ──
+        // Azioni
         btnNuovo.addActionListener(e -> apriNuova());
         btnModifica.addActionListener(e -> apriModifica());
         btnElimina.addActionListener(e -> eliminaPersona());
 
-        // ── Assembla ──
+        // Assembla
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(Tema.BG);
         center.setBorder(BorderFactory.createEmptyBorder(0, 12, 12, 12));
@@ -171,7 +171,7 @@ public class FinestraPrincipale extends JFrame {
         setContentPane(root);
     }
 
-    // ── Button factories ─────────────────────────────────────
+    // Button factories
 
     private JButton creaBtnAccent(String testo, boolean small) {
         JButton btn = new JButton(testo) {
@@ -235,7 +235,7 @@ public class FinestraPrincipale extends JFrame {
         btn.setPreferredSize(new Dimension(btn.getPreferredSize().width + 24, 34));
     }
 
-    // ── Logica ───────────────────────────────────────────────
+    // Logica
 
     private void aggiornaTabella() {
         modelloTabella.setRowCount(0);

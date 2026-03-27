@@ -44,7 +44,7 @@ public class FinestraLogin extends JFrame {
         };
         root.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
-        // ── titolo ──
+        // titolo
         JPanel topPanel = new JPanel();
         topPanel.setOpaque(false);
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
@@ -64,7 +64,7 @@ public class FinestraLogin extends JFrame {
         topPanel.add(Box.createVerticalStrut(4));
         topPanel.add(sottotitolo);
 
-        // ── Card form ──
+        // Card form
         JPanel card = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -93,7 +93,7 @@ public class FinestraLogin extends JFrame {
         JButton btnLogin = creaBtnLogin();
         card.add(btnLogin);
 
-        // ── Assembla ──
+        // Assembla
         root.add(topPanel, BorderLayout.NORTH);
         root.add(Box.createVerticalStrut(24), BorderLayout.CENTER);
 
@@ -103,7 +103,7 @@ public class FinestraLogin extends JFrame {
         centerWrap.add(card, BorderLayout.CENTER);
         root.add(centerWrap, BorderLayout.CENTER);
 
-        // ── Azioni ──
+        // Azioni
         ActionListener az = e -> tentaLogin();
         btnLogin.addActionListener(az);
         campoPassword.addActionListener(az);
@@ -112,7 +112,7 @@ public class FinestraLogin extends JFrame {
         setContentPane(root);
     }
 
-    // ── Helpers UI ──────────────────────────────────────────
+    // Helpers UI
 
     private JLabel creaLabelCampo(String testo) {
         JLabel l = new JLabel(testo);
@@ -181,7 +181,7 @@ public class FinestraLogin extends JFrame {
         return btn;
     }
 
-    // ── Login logic ─────────────────────────────────────────
+    // Login logic
 
     private void tentaLogin() {
         String username = campoUsername.getText().trim();
@@ -206,7 +206,7 @@ public class FinestraLogin extends JFrame {
     private void mostraErrore(String msg) {
         Popup.errore(this, msg, "Errore");}
 
-        // ── Border arrotondato ───────────────────────────────────
+        // Border arrotondato
 
         static class RoundedBorder extends AbstractBorder {
             private final int radius;

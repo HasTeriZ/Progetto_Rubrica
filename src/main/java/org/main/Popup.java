@@ -14,38 +14,17 @@ public class Popup {
     public static final int YES = 0;
     public static final int NO = 1;
 
-    // ── API pubblica ─────────────────────────────────────────
-
-    /**
-     * Messaggio informativo (OK).
-     */
-    public static void info(Component parent, String messaggio, String titolo) {
-        mostra(parent, messaggio, titolo, "ℹ", Tema.ACCENT, false);
-    }
-
-    /**
-     * Messaggio di avvertimento (OK).
-     */
     public static void avviso(Component parent, String messaggio, String titolo) {
         mostra(parent, messaggio, titolo, "⚠", Tema.WARNING, false);
     }
 
-    /**
-     * Messaggio di errore (OK).
-     */
     public static void errore(Component parent, String messaggio, String titolo) {
         mostra(parent, messaggio, titolo, "✕", Tema.DANGER, false);
     }
 
-    /**
-     * Dialogo di conferma con Sì / No.
-     *
-     * @return {@code Popup.YES} o {@code Popup.NO}
-     */
     public static int conferma(Component parent, String messaggio, String titolo) {
         return mostraConferma(parent, messaggio, titolo);
     }
-
 
     private static void mostra(Component parent, String messaggio, String titolo,
                                String emoji, Color accentColor, boolean isConfirm) {
@@ -133,7 +112,7 @@ public class Popup {
         return risultato.get();
     }
 
-    // ── Helpers costruzione UI ───────────────────────────────
+    // Helpers costruzione UI
 
     private static JDialog creaDialog(Component parent, String titolo) {
         Window window = parent == null ? null
@@ -163,7 +142,6 @@ public class Popup {
         h.setBackground(Tema.PANEL);
         h.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Tema.BORDER));
 
-        // Cerchio colorato con emoji
         JLabel badge = new JLabel(emoji, SwingConstants.CENTER) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -189,7 +167,7 @@ public class Popup {
         return h;
     }
 
-    // ── Button factory ───────────────────────────────────────
+    // Button factory
 
     private static JButton creaBtnAccent(String testo, Color bg, Color hover) {
         JButton btn = new JButton(testo) {

@@ -44,9 +44,6 @@ public class GestoreUtenti implements IAutenticazione{
         }
     }
 
-    /**
-     * Verifica se username e password corrispondono a un utente registrato.
-     */
     public boolean verificaLogin(String username, String password) {
         for (Utente u : utenti) {
             if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
@@ -57,7 +54,7 @@ public class GestoreUtenti implements IAutenticazione{
     }
 
     /**
-     * Aggiunge un nuovo utente non implementato
+     * Aggiunge un nuovo utente, non implementato
      */
     public void aggiungiUtente(String username, String password) {
         utenti.add(new Utente(username, password));

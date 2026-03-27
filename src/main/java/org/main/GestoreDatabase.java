@@ -19,8 +19,6 @@ public class GestoreDatabase implements IPersistenza, IAutenticazione {
         caricaCredenziali();
     }
 
-    // ── Caricamento credenziali ──────────────────────────────
-
     private void caricaCredenziali() {
         // Prima prova come file esterno, poi nel classpath (Gradle)
         InputStream in = null;
@@ -89,7 +87,6 @@ public class GestoreDatabase implements IPersistenza, IAutenticazione {
         }
     }
 
-    // ── Connessione ──────────────────────────────────────────
 
     private Connection getConnessione() throws SQLException {
         if (!configurato) {
@@ -99,7 +96,6 @@ public class GestoreDatabase implements IPersistenza, IAutenticazione {
         return DriverManager.getConnection(url, utente, password);
     }
 
-    // ── IPersistenza ─────────────────────────────────────────
 
     @Override
     public void salvaPersone(Vector<Persona> persone) {
@@ -155,7 +151,6 @@ public class GestoreDatabase implements IPersistenza, IAutenticazione {
         return persone;
     }
 
-    // ── Utenti ───────────────────────────────────────────────
     @Override
     public boolean verificaLogin(String username, String passwordInput) {
         String sql = "SELECT password FROM utenti WHERE username = ?";
@@ -177,13 +172,7 @@ public class GestoreDatabase implements IPersistenza, IAutenticazione {
         return configurato;
     }
 
-    // ── Helper popup ─────────────────────────────────────────
 
-    /**
-     * Mostra un Popup.errore thread-safe: se siamo sull'EDT lo chiama
-     * direttamente, altrimenti usa invokeAndWait per bloccare il thread
-     * chiamante finché l'utente non chiude il dialogo.
-     */
     private void mostraErroreDB(String messaggio, String titolo) {
         System.err.println("[DB] " + titolo + ": " + messaggio);
         Runnable mostra = () -> Popup.errore(null, messaggio, titolo);

@@ -1,9 +1,5 @@
 package org.main;
 
-/**
- * Rappresenta un utente che può accedere alla rubrica.
- * Contiene username e password
- */
 public class Utente {
     private String username;
     private String password;
