@@ -139,9 +139,14 @@ public class Popup {
         Window window = parent == null ? null
                 : (parent instanceof Window ? (Window) parent
                    : SwingUtilities.getWindowAncestor(parent));
-        JDialog dlg = window instanceof Frame
-                ? new JDialog((Frame) window, titolo, true)
-                : new JDialog((Dialog) window, titolo, true);
+        JDialog dlg;
+        if (window instanceof Frame) {
+            dlg = new JDialog((Frame) window, titolo, true);
+        } else if (window instanceof Dialog) {
+            dlg = new JDialog((Dialog) window, titolo, true);
+        } else {
+            dlg = new JDialog((Frame) null, titolo, true);
+        }
         dlg.setResizable(false);
         dlg.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         return dlg;

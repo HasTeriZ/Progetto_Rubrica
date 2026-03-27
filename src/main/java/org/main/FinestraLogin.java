@@ -8,12 +8,14 @@ import java.awt.geom.RoundRectangle2D;
 
 public class FinestraLogin extends JFrame {
 
-    private final GestoreUtenti gestoreUtenti;
+    private final IAutenticazione autenticazione;
+    private final IPersistenza persistenza;
     private JTextField campoUsername;
     private JPasswordField campoPassword;
 
-    public FinestraLogin(GestoreUtenti gestoreUtenti) {
-        this.gestoreUtenti = gestoreUtenti;
+    public FinestraLogin(IAutenticazione autenticazione, IPersistenza persistenza) {
+        this.autenticazione = autenticazione;
+        this.persistenza = persistenza;
         setTitle("Rubrica — Login");
         setSize(400, 480);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,7 +28,8 @@ public class FinestraLogin extends JFrame {
 
     private void costruisciUI() {
         JPanel root = new JPanel(new BorderLayout()) {
-            @Override protected void paintComponent(Graphics g) {
+            @Override
+            protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setColor(Tema.BG);
@@ -63,7 +66,8 @@ public class FinestraLogin extends JFrame {
 
         // ── Card form ──
         JPanel card = new JPanel() {
-            @Override protected void paintComponent(Graphics g) {
+            @Override
+            protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setColor(Tema.PANEL);
@@ -140,14 +144,22 @@ public class FinestraLogin extends JFrame {
         f.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         f.setAlignmentX(Component.LEFT_ALIGNMENT);
         f.addFocusListener(new FocusAdapter() {
-            @Override public void focusGained(FocusEvent e) { f.setBorder(new RoundedBorder(8, Tema.ACCENT)); }
-            @Override public void focusLost(FocusEvent e)   { f.setBorder(new RoundedBorder(8, Tema.FIELD_BORD)); }
+            @Override
+            public void focusGained(FocusEvent e) {
+                f.setBorder(new RoundedBorder(8, Tema.ACCENT));
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                f.setBorder(new RoundedBorder(8, Tema.FIELD_BORD));
+            }
         });
     }
 
     private JButton creaBtnLogin() {
         JButton btn = new JButton("Accedi") {
-            @Override protected void paintComponent(Graphics g) {
+            @Override
+            protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 Color c = getModel().isRollover() ? Tema.ACCENT_HOV : Tema.ACCENT;
@@ -179,15 +191,11 @@ public class FinestraLogin extends JFrame {
             mostraErrore("Inserire username e password.");
             return;
         }
-        if (gestoreUtenti.verificaLogin(username, password)) {
+        if (autenticazione.verificaLogin(username, password)) {
             dispose();
-            // Metodo per la persistenza in Mysql
-            //SwingUtilities.invokeLater(() ->
-                    //new FinestraPrincipale(new GestoreRubrica(new GestoreDatabase())));
-
-            // Metodo per la persistenza in file txt
             SwingUtilities.invokeLater(() ->
-                    new FinestraPrincipale(new GestoreRubrica(new GestoreFile())));
+                    new FinestraPrincipale(new GestoreRubrica(persistenza
+                    )));
         } else {
             mostraErrore("Username o password errati.");
             campoPassword.setText("");
@@ -196,23 +204,32 @@ public class FinestraLogin extends JFrame {
     }
 
     private void mostraErrore(String msg) {
-        Popup.errore(this, "Inserire username e password.", "Errore");
-    }
+        Popup.errore(this, msg, "Errore");}
 
-    // ── Border arrotondato ───────────────────────────────────
+        // ── Border arrotondato ───────────────────────────────────
 
-    static class RoundedBorder extends AbstractBorder {
-        private final int radius;
-        private final Color color;
-        RoundedBorder(int radius, Color color) { this.radius = radius; this.color = color; }
-        @Override public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setColor(color);
-            g2.setStroke(new BasicStroke(1.5f));
-            g2.draw(new RoundRectangle2D.Float(x+1, y+1, w-2, h-2, radius, radius));
-            g2.dispose();
+        static class RoundedBorder extends AbstractBorder {
+            private final int radius;
+            private final Color color;
+
+            RoundedBorder(int radius, Color color) {
+                this.radius = radius;
+                this.color = color;
+            }
+
+            @Override
+            public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(color);
+                g2.setStroke(new BasicStroke(1.5f));
+                g2.draw(new RoundRectangle2D.Float(x + 1, y + 1, w - 2, h - 2, radius, radius));
+                g2.dispose();
+            }
+
+            @Override
+            public Insets getBorderInsets(Component c) {
+                return new Insets(6, 10, 6, 10);
+            }
         }
-        @Override public Insets getBorderInsets(Component c) { return new Insets(6, 10, 6, 10); }
     }
-}

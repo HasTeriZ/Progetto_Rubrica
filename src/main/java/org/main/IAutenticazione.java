@@ -1,4 +1,5 @@
 package org.main;
 
-public class IAutenticazione {
+public interface IAutenticazione {
+    boolean verificaLogin(String username, String password);
 }

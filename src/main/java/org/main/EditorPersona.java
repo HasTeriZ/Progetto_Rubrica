@@ -181,12 +181,28 @@ public class EditorPersona extends JDialog {
             Popup.errore(this, "Nome e Cognome sono obbligatori.", "Errore di validazione");
             return;
         }
+
+        if (telefono.isEmpty()) {
+            Popup.errore(this, "Il telefono è obbligatorio.", "Errore di validazione");
+            return;
+        }
+        if (!telefono.matches("[+]?[0-9 ]+")) {
+            Popup.errore(this, "Il telefono può contenere solo cifre, spazi e il prefisso +.", "Errore di validazione");
+            return;
+        }
+
         int eta;
+
+        if (etaStr.isEmpty()) {
+            Popup.errore(this, "Il campo età è obbligatorio.", "Errore di validazione");
+            return;
+        }
+
         try {
             eta = Integer.parseInt(etaStr);
-            if (eta < 0 || eta > 150) throw new NumberFormatException();
+            if (eta < 1 || eta > 150) throw new NumberFormatException();
         } catch (NumberFormatException ex) {
-            Popup.errore(this, "Inserire un'età valida (0–150).", "Errore di validazione");
+            Popup.errore(this, "Inserire un'età valida (1–150).", "Errore di validazione");
             return;
         }
         personaRisultato = new Persona(nome, cognome, indirizzo, telefono, eta);

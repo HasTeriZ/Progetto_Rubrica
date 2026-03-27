@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class GestoreUtenti {
+public class GestoreUtenti implements IAutenticazione{
 
     private static final String FILE_UTENTI = "utenti.txt";
     private Vector<Utente> utenti;

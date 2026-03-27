@@ -1,8 +1,5 @@
 package org.main;
 
-import org.main.FinestraLogin;
-import org.main.GestoreUtenti;
-
 import javax.swing.SwingUtilities;
 
 /**
@@ -11,8 +8,10 @@ import javax.swing.SwingUtilities;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            GestoreUtenti gestoreUtenti = new GestoreUtenti();
-            new FinestraLogin(gestoreUtenti);
+//            IAutenticazione autenticazione = new GestoreUtenti();
+//            IPersistenza persistenza = new GestoreFile();
+            GestoreDatabase db = new GestoreDatabase();
+            new FinestraLogin(db, db);
         });
     }
 }

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.Properties;
 import java.util.Vector;
 
-public class GestoreDatabase implements IPersistenza {
+public class GestoreDatabase implements IPersistenza, IAutenticazione {
 
     private static final String FILE_PROPRIETA = "credenziali_database.properties";
 
@@ -156,8 +156,8 @@ public class GestoreDatabase implements IPersistenza {
     }
 
     // ── Utenti ───────────────────────────────────────────────
-
-    public boolean verificaUtente(String username, String passwordInput) {
+    @Override
+    public boolean verificaLogin(String username, String passwordInput) {
         String sql = "SELECT password FROM utenti WHERE username = ?";
         try (Connection conn = getConnessione();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

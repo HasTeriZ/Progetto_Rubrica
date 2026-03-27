@@ -6,6 +6,7 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.RowSorter;
 
 public class FinestraPrincipale extends JFrame {
 
@@ -87,6 +88,13 @@ public class FinestraPrincipale extends JFrame {
                 return c;
             }
         };
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modelloTabella);
+        tabella.setRowSorter(sorter);
+
+        // Ordina per la colonna 1 (Cognome) in ordine crescente
+        sorter.setSortKeys(java.util.List.of(
+                new RowSorter.SortKey(1, SortOrder.ASCENDING)
+        ));
 
         // Header tabella
         JTableHeader th = tabella.getTableHeader();
@@ -152,7 +160,6 @@ public class FinestraPrincipale extends JFrame {
         center.add(scroll, BorderLayout.CENTER);
 
         root.add(header, BorderLayout.NORTH);
-        root.add(toolbar, BorderLayout.AFTER_LINE_ENDS);
 
         JPanel mainArea = new JPanel(new BorderLayout());
         mainArea.setBackground(Tema.BG);
@@ -248,31 +255,33 @@ public class FinestraPrincipale extends JFrame {
     }
 
     private void apriModifica() {
-        int riga = tabella.getSelectedRow();
-        if (riga == -1) {
+        int rigaVista = tabella.getSelectedRow();
+        if (rigaVista == -1) {
             Popup.avviso(this, "Seleziona prima una persona da modificare.", "Attenzione");
             return;
         }
-        EditorPersona editor = new EditorPersona(this, gestore.getPersone().get(riga));
+        int rigaModello = tabella.convertRowIndexToModel(rigaVista);
+        EditorPersona editor = new EditorPersona(this, gestore.getPersone().get(rigaModello));
         editor.setVisible(true);
         if (editor.isSalvato()) {
-            gestore.modificaPersona(riga, editor.getPersonaRisultato());
+            gestore.modificaPersona(rigaModello, editor.getPersonaRisultato());
             aggiornaTabella();
         }
     }
 
     private void eliminaPersona() {
-        int riga = tabella.getSelectedRow();
-        if (riga == -1) {
+        int rigaVista = tabella.getSelectedRow();
+        if (rigaVista == -1) {
             Popup.avviso(this, "Seleziona prima una persona da eliminare.", "Attenzione");
             return;
         }
-        Persona p = gestore.getPersone().get(riga);
+        int rigaModello = tabella.convertRowIndexToModel(rigaVista);
+        Persona p = gestore.getPersone().get(rigaModello);
         int ok = Popup.conferma(this,
                 "Eliminare " + p.getNome() + " " + p.getCognome() + "?",
                 "Conferma eliminazione");
         if (ok == Popup.YES) {
-            gestore.eliminaPersona(riga);
+            gestore.eliminaPersona(rigaModello);
             aggiornaTabella();
         }
     }

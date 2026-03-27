@@ -18,6 +18,7 @@ out/
 !**/src/test/**/out/
 !**/src/main/java/resources/credenziali_database.properties
 src/main/resources/credenziali_database.properties
+.idea
 
 ### Eclipse ###
 .apt_generated
@@ -43,4 +44,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+
 

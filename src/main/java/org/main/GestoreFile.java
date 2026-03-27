@@ -63,7 +63,7 @@ public class GestoreFile implements IPersistenza {
 
         for (File file : files) {
             try (Scanner scanner = new Scanner(file, "UTF-8")) {
-                if (scanner.hasNextLine()) {
+                while (scanner.hasNextLine()) {
                     String riga = scanner.nextLine().trim();
                     Persona p = Persona.daStringa(riga);
                     if (p != null) {
