@@ -120,8 +120,8 @@ public class Popup {
             dlg.dispose();
         });
 
-        footer.add(btnNo);
         footer.add(btnSi);
+        footer.add(btnNo);
         root.add(footer, BorderLayout.SOUTH);
 
         dlg.setContentPane(root);
